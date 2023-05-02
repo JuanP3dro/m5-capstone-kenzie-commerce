@@ -1,5 +1,7 @@
 # m5-capstone-kenzie-commerce - Grupo 23
 
+Este é o repositorio
+
 ## Models
 
 ### Model User
