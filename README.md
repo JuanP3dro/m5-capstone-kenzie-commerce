@@ -12,10 +12,10 @@ Modelo de requisição:
 
 ```
 {
-"username": "João Borchoski"
-"email": "joao@joao.com",
-"password": "1212",
-"user_type": "ademiro"
+    "username": "João Borchoski"
+    "email": "joao@joao.com",
+    "password": "1212",
+    "user_type": "ademiro"
 }
 ```
 
@@ -24,7 +24,12 @@ Modelo de requisição:
 Modelo de resposta caso de certo:
 
 ```
-...
+{
+    "id": 1
+    "username": "João Borchoski"
+    "email": "joao@joao.com",
+    "user_type": "ademiro"
+}
 ```
 
 Modelo de resposta caso de errado:
@@ -41,8 +46,8 @@ Modelo de Requisição:
 
 ```
 {
-"username": "joao@joao.com",
-"password": "121212"
+    "username": "joao@joao.com",
+    "password": "121212"
 }
 ```
 
