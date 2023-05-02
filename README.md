@@ -8,7 +8,7 @@ POST /users/
 
 Não necessita autorização
 
-Modelo de requisição:
+Modelo de Requisição:
 
 ```
 {
@@ -36,6 +36,8 @@ Modelo de resposta caso de errado:
 
 `{"Descrição do erro"}`
 
+<br/>
+
 ### Login
 
 POST /login/
@@ -59,6 +61,44 @@ Modelo de resposta caso de certo:
 {
     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvYW9Aam9hby5jb20iLCJpYXQiOjE2NzI3NjYwMTcsImV4cCI6MTY3Mjc2OTYxNywic3ViIjoiMSJ9",
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvYW9Aam9hby5jb20iLCJpYXQiOjE2NzI3NjYwMTcsImV4cCI6MTY3Mjc2OTYxNywic3ViIjoiMSJ9"
+}
+```
+
+Modelo de resposta caso de errado:
+`{"Descrição do erro"}`
+
+<br/>
+
+### Address
+
+POST /address/
+
+Necessita de autorização
+
+Modelo de Requisição:
+
+```
+{
+    "cep": "12345-678",
+    "street": "ruazinha",
+    "number": "1",
+    "complement": "casa",
+    "user_id": 1
+}
+```
+
+#### Respostas Da Resquisição: <br/>
+
+Modelo de resposta caso de certo:
+
+```
+{
+    "id": 1
+    "cep": "12345-678",
+    "street": "ruazinha",
+    "number": "1",
+    "complement": "casa",
+    "user_id": 1
 }
 ```
 
