@@ -143,6 +143,40 @@ Modelo de resposta caso de errado:
 
 <br/>
 
+### Order
+
+POST /order/
+
+Necessita de autorização
+
+Requisição sem corpo
+
+#### Respostas Da Resquisição: <br/>
+
+Modelo de resposta caso de certo:
+
+```
+{
+    "id": 1
+    "status": "Pedido realizado",
+    "created_at": "agora",
+    "products": [
+        {
+            "id": 1
+            "name": "manga",
+            "category": "fruta",
+            "price": "1",
+            "seller_id": 1
+        }
+    ]
+}
+```
+
+Modelo de resposta caso de errado:
+`{"Descrição do erro"}`
+
+<br/>
+
 ## Models
 
 ### Model User
