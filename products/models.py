@@ -7,4 +7,3 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     in_stock = models.PositiveSmallIntegerField()
     is_available = models.BooleanField()
-    ...
