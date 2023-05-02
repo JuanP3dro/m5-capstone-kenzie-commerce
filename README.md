@@ -12,10 +12,10 @@ Modelo de requisição:
 
 ```
 {
-	"username": "João Borchoski"
-    "email": "joao@joao.com",
-	"password": "1212",
-	"user_type": "ademiro"
+"username": "João Borchoski"
+"email": "joao@joao.com",
+"password": "1212",
+"user_type": "ademiro"
 }
 ```
 
