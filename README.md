@@ -83,7 +83,6 @@ Modelo de Requisição:
     "street": "ruazinha",
     "number": "1",
     "complement": "casa",
-    "user_id": 1
 }
 ```
 
@@ -121,7 +120,6 @@ Modelo de Requisição:
     "category": "fruta",
     "price": "1",
     "in_stock": "10",
-    "seller_id": 1
 }
 ```
 
