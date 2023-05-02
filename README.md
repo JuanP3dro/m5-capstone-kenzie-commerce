@@ -1,6 +1,23 @@
 # m5-capstone-kenzie-commerce - Grupo 23
 
-Este é o repositorio
+## Requisições
+
+### Cadastro
+
+POST /users/
+
+Não necessita autorização
+
+Modelo de requisição:
+
+```
+{
+	"username": "João Borchoski"
+    "email": "joao@joao.com",
+	"password": "1212",
+	"user_type": "ademiro"
+}
+```
 
 ## Models
 
@@ -42,8 +59,7 @@ Este é o repositorio
 
 ### Model Order
 
-| Atributos | Propriedades  |
-| --------- | ------------- |
-| status    | ChoiceField() |
-| products  | ...           |
-| time      | ...           |
+| Atributos  | Propriedades                     |
+| ---------- | -------------------------------- |
+| status     | ChoiceField()                    |
+| created_at | DateTimeField(auto_now_add=True) |
