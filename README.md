@@ -19,6 +19,49 @@ Modelo de requisição:
 }
 ```
 
+#### Respostas Da Resquisição: <br/>
+
+Modelo de resposta caso de certo:
+
+```
+...
+```
+
+Modelo de resposta caso de errado:
+
+`{"Descrição do erro"}`
+
+### Login
+
+POST /login/
+
+Não necessita de autorização
+
+Modelo de Requisição:
+
+```
+{
+"username": "joao@joao.com",
+"password": "121212"
+}
+```
+
+#### Respostas Da Resquisição: <br/>
+
+Modelo de resposta caso de certo:
+
+```
+{
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvYW9Aam9hby5jb20iLCJpYXQiOjE2NzI3NjYwMTcsImV4cCI6MTY3Mjc2OTYxNywic3ViIjoiMSJ9",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvYW9Aam9hby5jb20iLCJpYXQiOjE2NzI3NjYwMTcsImV4cCI6MTY3Mjc2OTYxNywic3ViIjoiMSJ9"
+}
+```
+
+Modelo de resposta caso de errado:
+`{"Descrição do erro"}`
+
+<br/>
+
 ## Models
 
 ### Model User
