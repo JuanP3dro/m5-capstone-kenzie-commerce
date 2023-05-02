@@ -107,6 +107,44 @@ Modelo de resposta caso de errado:
 
 <br/>
 
+### Products
+
+POST /products/
+
+Necessita de autorização
+
+Modelo de Requisição:
+
+```
+{
+    "name": "manga",
+    "category": "fruta",
+    "price": "1",
+    "in_stock": "10",
+    "seller_id": 1
+}
+```
+
+#### Respostas Da Resquisição: <br/>
+
+Modelo de resposta caso de certo:
+
+```
+{
+    "id": 1
+    "name": "manga",
+    "category": "fruta",
+    "price": "1",
+    "in_stock": "10",
+    "seller_id": 1
+}
+```
+
+Modelo de resposta caso de errado:
+`{"Descrição do erro"}`
+
+<br/>
+
 ## Models
 
 ### Model User
