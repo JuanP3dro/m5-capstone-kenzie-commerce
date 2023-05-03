@@ -1,5 +1,7 @@
 # m5-capstone-kenzie-commerce - Grupo 23
 
+Repositorio do nosso projeto de final de modulo utilizando o rest-framework do django para desenvolver as funcionalidades.
+
 ## Requisições
 
 ### Cadastro
@@ -40,7 +42,7 @@ Modelo de resposta caso de errado:
 
 ### Login
 
-POST /login/
+POST /users/login/
 
 Não necessita de autorização
 
