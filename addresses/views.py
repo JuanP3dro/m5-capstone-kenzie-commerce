@@ -4,11 +4,12 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import Address
 from .serializers import AddressSerializer
+from users.permissions import IsAccountOwner
 
 
 class AddressView(generics.ListCreateAPIView):
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsAccountOwner]
 
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
@@ -18,8 +19,8 @@ class AddressView(generics.ListCreateAPIView):
 
 
 class AddressDetailView(generics.RetrieveUpdateDestroyAPIView):
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsAccountOwner]
 
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
