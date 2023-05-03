@@ -9,4 +9,5 @@ class Status(models.TextChoices):
 class Order(models.Model):
     status = models.CharField(max_length=100, choices=Status.choices, default=Status.REALIZADO)
     created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey('users.user', on_delete=models.CASCADE, related_name='orders')
 # Create your models here.
