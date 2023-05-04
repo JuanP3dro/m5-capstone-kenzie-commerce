@@ -11,8 +11,8 @@ class CartSerializer(serializers.ModelSerializer):
         return Cart.objects.create(**validated_data)
 
 class ProductCartSerializer(serializers.ModelSerializer):
-    products = ProductSerializer(many=True)
-    cart = CartSerializer(many=True)
+    products = ProductSerializer(many=True, read_only=True)
+    cart = CartSerializer(many=True, read_only=True)
     class Meta:
         model = ProductCart
         fields = ['id', 'products', 'cart', 'quantity']
