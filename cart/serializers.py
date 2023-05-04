@@ -1,13 +1,14 @@
 from .models import Cart, ProductCart
 from rest_framework import serializers
 from products.serializers import ProductSerializer
-from cart.serializers import CartSerializer
 
 class CartSerializer(serializers.ModelSerializer):
     products = ProductSerializer(many=True)
     class Meta:
         model = Cart
-        fields = ['id', 'products', 'user_id']
+        fields = ['id', 'user_id']
+    def create(self, validated_data):
+        return Cart.objects.create(**validated_data)
 
 class ProductCartSerializer(serializers.ModelSerializer):
     products = ProductSerializer(many=True)
@@ -15,3 +16,5 @@ class ProductCartSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductCart
         fields = ['id', 'products', 'cart', 'quantity']
+    def create(self, validated_data):
+        return ProductCart.objects.create(**validated_data)
