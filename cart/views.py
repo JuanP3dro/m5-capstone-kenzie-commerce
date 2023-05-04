@@ -1,15 +1,23 @@
 from django.shortcuts import render
-from .models import Cart
+from .models import Cart, ProductCart
 from .serializers import CartSerializer, ProductCartSerializer
 from products.models import Product
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView, Response, Request, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+
 class CartView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        product_cart = ProductCart.objects.filter(cart=request.user.cart)
+
+        return Response(ProductCartSerializer(product_cart, many=True).data)
+
     def post(self, request: Request):
         cart = Cart.objects.filter(user=request.user).first()
         if not cart:
@@ -43,3 +51,8 @@ class CartView(APIView):
             serializer_product_cart.save(cart=cart, products=product)
 
         return Response(serializer_product_cart.data, status=status.HTTP_201_CREATED)
+
+
+class CartDetailView(RetrieveUpdateDestroyAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
