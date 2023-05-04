@@ -14,6 +14,9 @@ class ProductView(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+    def perform_create(self, serializer) -> None:
+        serializer.save(seller=self.request.user)
+
 
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]

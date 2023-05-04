@@ -4,12 +4,10 @@ from rest_framework.validators import UniqueValidator
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    is_available = serializers.SerializerMethodField(read_only=True)
-
     class Meta:
         model = Product
         fields = ["id", "name", "category", "price", "in_stock", "is_available"]
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "is_available"]
         extra_kwargs = {
             "name": {
                 "validators": [
@@ -21,7 +19,9 @@ class ProductSerializer(serializers.ModelSerializer):
             }
         }
 
-    def get_is_available(self, object):
-        if object.in_stock > 0:
-            return True
-        return False
+    def create(self, validated_data):
+        validated_data["is_available"] = False
+        if validated_data["in_stock"] > 0:
+            validated_data["is_available"] = True
+
+        return super().create(validated_data)
