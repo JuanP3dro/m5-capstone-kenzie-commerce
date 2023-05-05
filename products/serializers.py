@@ -19,7 +19,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "seller",
         ]
         depth = 0
-        read_only_fields = ["id", "is_available", "sellers"]
+        read_only_fields = ["id", "is_available", "seller"]
         extra_kwargs = {
             "name": {
                 "validators": [
