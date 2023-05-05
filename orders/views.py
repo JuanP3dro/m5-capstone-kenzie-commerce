@@ -5,6 +5,7 @@ from cart.models import Cart, ProductCart
 from .serializers import OrderSerializer
 from rest_framework.views import APIView, Response, Request, status
 
+
 class OrderView(APIView):
     def post(self, request: Request):
         cart = Cart.objects.filter(user_id=request.user.id).first()
