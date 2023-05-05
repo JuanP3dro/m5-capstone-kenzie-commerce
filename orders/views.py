@@ -25,3 +25,10 @@ class OrderView(APIView):
         serializer.save(user=request.user)
         
         return Response(serializer.data, status.HTTP_201_CREATED)
+
+    def get(self, request: Request):
+        order = Order.objects.filter(user=request.user)
+
+        return Response(OrderSerializer(order).data)
+            
+        ...
