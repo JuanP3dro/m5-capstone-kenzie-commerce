@@ -31,6 +31,10 @@ class OrderView(APIView):
             order = Order.objects.filter(user=request.user).first()
             order.products.add(elem.products)
 
+        for x in cart_user:
+            if x.products.seller in sellers:
+                ...
+
         cart.delete()
         cart_user.delete()
 
