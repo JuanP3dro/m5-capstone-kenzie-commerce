@@ -9,7 +9,7 @@ class SellerPermission(permissions.BasePermission):
         if req.method in permissions.SAFE_METHODS:
             return True
 
-        return req.user.is_authenticated and req.user.is_seller
+        return req.user.is_authenticated and req.user.is_seller or req.user.is_superuser
 
 
 class SellerOwerPermission(permissions.BasePermission):
