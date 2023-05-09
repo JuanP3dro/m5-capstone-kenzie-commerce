@@ -18,6 +18,10 @@ class OrderView(APIView):
 
     def post(self, request: Request):
         cart = Cart.objects.filter(user_id=request.user.id).first()
+
+        if not cart:
+            return Response({"message": "Empty cart"}, status.HTTP_400_BAD_REQUEST)
+
         id = cart.id
         cart_user = ProductCart.objects.filter(cart_id=id)
 
@@ -70,8 +74,8 @@ class OrderView(APIView):
 
             return_list.append(return_legal)
 
-        # cart.delete()
-        # cart_user.delete()
+        cart.delete()
+        cart_user.delete()
 
         return Response({"orders": return_list}, status.HTTP_201_CREATED)
 
