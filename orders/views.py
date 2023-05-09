@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -10,16 +9,14 @@ from .serializers import (
 )
 
 from products.models import Product
-from products.serializers import ProductSerializer, ProductReturnSerializer
+from products.serializers import ProductSerializer
 from products.permissions import SellerPermission
 
 from cart.models import Cart, ProductCart
-from cart.serializers import ProductCartSerializer, CartSerializer
 
 from users.serializers import UserSerializer
 from users.serializers import UserSerializer
 
-from rest_framework import generics
 from rest_framework.views import APIView, Response, Request, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication

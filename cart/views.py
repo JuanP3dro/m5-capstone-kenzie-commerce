@@ -1,13 +1,10 @@
-from django.shortcuts import render
 from .models import Cart, ProductCart
-from .serializers import CartSerializer, ProductCartSerializer
+from .serializers import ProductCartSerializer
 from products.models import Product
-from products.serializers import ProductSerializer
 
 from rest_framework.views import APIView, Response, Request, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
 from rest_framework import generics
 
 
@@ -76,25 +73,6 @@ class CartView(APIView):
         product_cart.save()
 
         return Response(ProductCartSerializer(product_cart).data)
-
-
-# class CartDetailView(APIView):
-#     authentication_classes = [JWTAuthentication]
-#     permission_classes = [IsAuthenticated]
-
-#     def delete(self, request, pk):
-#         product = Product.objects.filter(pk=pk).first()
-#         product_cart = ProductCart.objects.filter(
-#             cart=request.user.cart, products=product
-#         ).first()
-
-#         if not product_cart:
-#             return Response(
-#                 {"message": "Product not found"}, status=status.HTTP_404_NOT_FOUND
-#             )
-
-#         product_cart.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class CartDetailView(generics.DestroyAPIView):

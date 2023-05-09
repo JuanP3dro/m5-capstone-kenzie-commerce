@@ -5,16 +5,10 @@ from users.serializers import UserSerializer
 
 
 class CartSerializer(serializers.ModelSerializer):
-    # products = ProductSerializer(many=True, read_only=True)
-    # user = UserSerializer(read_only=True)
-
     class Meta:
         model = Cart
         fields = ["id", "user"]
         depth = 0
-
-    # def create(self, validated_data):
-    #     return Cart.objects.create(**validated_data)
 
 
 class ProductCartSerializer(serializers.ModelSerializer):

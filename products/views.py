@@ -1,15 +1,10 @@
-from django.shortcuts import render
 from .models import Product
 from .serializers import ProductSerializer
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import (
-    IsAuthenticated,
-    AllowAny,
-    IsAdminUser,
-    IsAdminUser,
-)
 from .permissions import SellerPermission
+
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class ProductView(ListCreateAPIView):
