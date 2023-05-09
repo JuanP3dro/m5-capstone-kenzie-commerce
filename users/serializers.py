@@ -5,6 +5,8 @@ from rest_framework.validators import UniqueValidator
 
 class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data: dict) -> User:
+        if self.context["request"].user.is_superuser == True:
+            return User.objects.create_superuser(**validated_data)
         return User.objects.create_user(**validated_data)
 
     def update(self, instance: User, validated_data: dict) -> User:
