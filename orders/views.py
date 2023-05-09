@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Order, ProductOrder
 from products.models import Product
 from cart.models import Cart, ProductCart
-from .serializers import OrderSerializer
+from .serializers import OrderSerializer, OrderProductSerializer
 from rest_framework.views import APIView, Response, Request, status
 from cart.serializers import ProductCartSerializer, CartSerializer
 from users.serializers import UserSerializer
@@ -18,6 +18,10 @@ class OrderView(APIView):
 
     def post(self, request: Request):
         cart = Cart.objects.filter(user_id=request.user.id).first()
+
+        if not cart:
+            return Response({"message": "Empty cart"}, status.HTTP_400_BAD_REQUEST)
+
         id = cart.id
         cart_user = ProductCart.objects.filter(cart_id=id)
 
@@ -45,6 +49,12 @@ class OrderView(APIView):
             for product in instance_list:
                 for elem in cart_user:
                     if elem.products.name == product.name:
+                        if product.in_stock < 1 or product.in_stock < elem.quantity:
+                            return Response(
+                                {"message": "Stock insufficient"},
+                                status.HTTP_400_BAD_REQUEST,
+                            )
+
                         ProductOrder.objects.create(
                             order=order_cart, product=product, quantity=elem.quantity
                         )
@@ -53,11 +63,14 @@ class OrderView(APIView):
                         product.save()
                     continue
 
-            print("-" * 20)
-            print(order_cart.order_product)
-            print("-" * 20)
-
             return_legal = OrderSerializer(order_cart).data
+
+            return_legal["products"] = [
+                OrderProductSerializer(
+                    ProductOrder.objects.get(product=product, order=order_cart)
+                ).data
+                for product in return_legal["products"]
+            ]
 
             return_list.append(return_legal)
 
