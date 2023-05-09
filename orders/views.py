@@ -48,6 +48,9 @@ class OrderView(APIView):
                         ProductOrder.objects.create(
                             order=order_cart, product=product, quantity=elem.quantity
                         )
+
+                        product.in_stock -= elem.quantity
+                        product.save()
                     continue
 
             return_legal = OrderSerializer(order_cart).data
