@@ -11,6 +11,8 @@ from rest_framework.permissions import (
 )
 from rest_framework import generics
 
+from rest_framework.views import APIView, Response, status
+
 
 class UserView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
@@ -38,3 +40,16 @@ class UserAdminView(generics.CreateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class CreateAdminView(APIView):
+    def post(self, request):
+        user = {
+            "username": "admin",
+            "email": "admin@admin.com",
+            "password": "1234",
+        }
+
+        admin = User.objects.create_superuser(**user)
+
+        return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
