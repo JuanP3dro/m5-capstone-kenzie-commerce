@@ -106,24 +106,6 @@ class OrderView(APIView):
         return Response(OrderSerializer(order, many=True).data)
 
 
-# class OrderUpdateView(generics.UpdateAPIView):
-#     authentication_classes = [JWTAuthentication]
-#     permission_classes = [IsAuthenticated, SellerPermission]
-
-#     queryset = Order.objects.all()
-#     serializer_class = OrderSerializer
-
-#     def perform_update(self, serializer):
-#         send_mail(
-#             subject="Atualização do pedido",
-#             message="O status do seu pedido foi atualizado!",
-#             from_email=settings.EMAIL_HOST_USER,
-#             recipient_list=["{self.request.user.email}"],
-#             fail_silently=False,
-#         )
-#         ...
-
-
 class OrderUpdateView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, SellerPermission]
