@@ -1,3 +1,7 @@
+from .serializers import UserSerializer
+from .permissions import IsAccountOwner
+from .models import User
+
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import (
     IsAuthenticated,
@@ -5,13 +9,7 @@ from rest_framework.permissions import (
     IsAdminUser,
     IsAdminUser,
 )
-
 from rest_framework import generics
-
-from .serializers import UserSerializer
-from .permissions import IsAccountOwner
-
-from .models import User
 
 
 class UserView(generics.ListCreateAPIView):
