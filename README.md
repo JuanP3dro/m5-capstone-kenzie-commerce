@@ -2,6 +2,35 @@
 
 Repositorio do nosso projeto de final de modulo utilizando o rest-framework do django para desenvolver as funcionalidades.
 
+## Instruções:
+
+### Crie o ambiente virtual
+
+```
+python -m venv venv
+```
+
+### Ative o venv
+
+```bash
+# linux:
+source venv/bin/activate
+# windows:
+.\venv\Scripts\activate
+```
+
+### Instale as dependências
+
+```
+pip install -r requirements.txt
+```
+
+### Execute as migrações
+
+```
+python manage.py migrate
+```
+
 ## Requisições
 
 ### Cadastro
@@ -30,6 +59,69 @@ Modelo de resposta caso de certo:
     "username": "João Borchoski"
     "email": "joao@joao.com",
     "user_type": "ademiro"
+}
+```
+
+Modelo de resposta caso de errado:
+
+`{"Descrição do erro"}`
+
+<br/>
+
+### Criação de primiero admin
+
+POST /admin/
+
+Rota cria um administrador automaticamente e a partir dele se consegue criar outros administradores.
+
+username: admin
+password: 1234
+
+Não necessita autorização
+
+#### Respostas Da Resquisição: <br/>
+
+Modelo de resposta caso de certo:
+
+```
+{
+	"username": "admin",
+	"email": "admin@admin.com"
+}
+```
+
+Modelo de resposta caso de errado:
+
+`{"Descrição do erro"}`
+
+<br/>
+
+### Criação de admin
+
+POST /users/admin
+
+Rota para criar outros administradores a partir do criado a cima
+
+Necessita token de admin
+
+Modelo de requisição
+
+{
+"username": "AdminCriadoPorAdmin",
+"email": "AdminCriadoPorAdmin@mail.com",
+"password": "1234"
+}
+
+#### Respostas Da Resquisição: <br/>
+
+Modelo de resposta caso de certo:
+
+```
+{
+	"id": 7,
+	"username": "AdminCriadoPorAdmin",
+	"email": "AdminCriadoPorAdmin@mail.com",
+	"is_seller": false
 }
 ```
 
@@ -254,6 +346,7 @@ Requisição sem corpo
 
 Modelo de resposta caso de certo:
 
+```
 {
 "count": 8,
 "next": "http://localhost:8000/api/products/?page=2",
@@ -306,6 +399,7 @@ Modelo de resposta caso de certo:
 }
 ]
 }
+```
 
 Modelo de resposta caso de errado:
 `{"Descrição do erro"}`
@@ -324,6 +418,7 @@ Requisição sem corpo
 
 Modelo de resposta caso de certo:
 
+```
 {
 "id": 31,
 "name": "alface",
@@ -333,6 +428,7 @@ Modelo de resposta caso de certo:
 "is_available": true,
 "seller": 3
 }
+```
 
 Modelo de resposta caso de errado:
 `{"Descrição do erro"}`
