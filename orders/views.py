@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Order, ProductOrder
 from products.models import Product
 from cart.models import Cart, ProductCart
-from .serializers import OrderSerializer
+from .serializers import OrderSerializer, OrderProductSerializer
 from rest_framework.views import APIView, Response, Request, status
 from cart.serializers import ProductCartSerializer, CartSerializer
 from users.serializers import UserSerializer
@@ -45,6 +45,12 @@ class OrderView(APIView):
             for product in instance_list:
                 for elem in cart_user:
                     if elem.products.name == product.name:
+                        if product.in_stock < 1 or product.in_stock < elem.quantity:
+                            return Response(
+                                {"message": "Stock insufficient"},
+                                status.HTTP_400_BAD_REQUEST,
+                            )
+
                         ProductOrder.objects.create(
                             order=order_cart, product=product, quantity=elem.quantity
                         )
@@ -54,12 +60,15 @@ class OrderView(APIView):
                     continue
 
             return_legal = OrderSerializer(order_cart).data
+
             return_legal["products"] = [
-                ProductSerializer(Product.objects.get(id=product)).data
+                OrderProductSerializer(
+                    ProductOrder.objects.get(product=product, order=order_cart)
+                ).data
                 for product in return_legal["products"]
             ]
 
-            return_list = return_legal
+            return_list.append(return_legal)
 
         # cart.delete()
         # cart_user.delete()
