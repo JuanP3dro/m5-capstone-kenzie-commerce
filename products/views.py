@@ -3,7 +3,12 @@ from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import (
+    IsAuthenticated,
+    AllowAny,
+    IsAdminUser,
+    IsAdminUser,
+)
 from .permissions import SellerPermission
 
 
@@ -13,6 +18,10 @@ class ProductView(ListCreateAPIView):
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
 
     def perform_create(self, serializer) -> None:
         serializer.save(seller=self.request.user)
