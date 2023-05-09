@@ -10,6 +10,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from products.serializers import ProductSerializer
 from users.serializers import UserSerializer
+from django.core.mail import send_mail
+from django.conf import settings
+from rest_framework import generics
 
 
 class OrderView(APIView):
@@ -83,3 +86,21 @@ class OrderView(APIView):
         order = Order.objects.filter(user=request.user)
 
         return Response(OrderSerializer(order).data)
+
+class OrderUpdateView(generics.UpdateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    def perform_update(self, serializer):
+        send_mail(
+        subject = 'Atualização do pedido',
+        message = 'O status do seu pedido foi atualizado!',
+        from_email = settings.EMAIL_HOST_USER,
+        recipient_list = ['{self.request.user.email}'],
+        fail_silently = False
+        )
+        ...
+        
