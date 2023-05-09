@@ -8,7 +8,7 @@ from cart.serializers import ProductCartSerializer, CartSerializer
 from users.serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from products.serializers import ProductSerializer
+from products.serializers import ProductSerializer, ProductReturnSerializer
 from users.serializers import UserSerializer
 
 

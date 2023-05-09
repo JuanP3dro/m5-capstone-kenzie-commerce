@@ -32,14 +32,6 @@ class CartView(APIView):
                 {"message": "Product not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
-        # if product.in_stock >= request.data["quantity"]:
-        #     product.in_stock -= request.data["quantity"]
-        #     product.save()
-        # else:
-        #     return Response(
-        #         {"message": "Insufficient stock"}, status=status.HTTP_409_CONFLICT
-        #     )
-
         if product.in_stock < request.data["quantity"]:
             return Response(
                 {"message": "Insufficient stock"}, status=status.HTTP_409_CONFLICT

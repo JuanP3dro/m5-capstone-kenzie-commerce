@@ -6,4 +6,4 @@ class User(AbstractUser):
     username = models.CharField(max_length=127, unique=True)
     email = models.EmailField(max_length=127, unique=True)
     password = models.CharField(max_length=127)
-    is_seller = models.BooleanField()
+    is_seller = models.BooleanField(default=False)
