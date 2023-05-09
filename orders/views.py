@@ -58,10 +58,6 @@ class OrderView(APIView):
             print("-" * 20)
 
             return_legal = OrderSerializer(order_cart).data
-            return_legal["products"] = [
-                ProductReturnSerializer(Product.objects.get(id=product)).data
-                for product in return_legal["products"]
-            ]
 
             return_list.append(return_legal)
 
