@@ -15,6 +15,8 @@ from .models import User
 
 
 class UserView(generics.ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 

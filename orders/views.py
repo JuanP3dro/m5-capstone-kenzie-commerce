@@ -1,18 +1,24 @@
 from django.shortcuts import render
-from .models import Order, ProductOrder
-from products.models import Product
-from cart.models import Cart, ProductCart
-from .serializers import OrderSerializer, OrderProductSerializer
-from rest_framework.views import APIView, Response, Request, status
-from cart.serializers import ProductCartSerializer, CartSerializer
-from users.serializers import UserSerializer
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from products.serializers import ProductSerializer, ProductReturnSerializer
-from users.serializers import UserSerializer
 from django.core.mail import send_mail
 from django.conf import settings
+
+from .models import Order, ProductOrder
+from .serializers import OrderSerializer, OrderProductSerializer
+
+from products.models import Product
+from products.serializers import ProductSerializer, ProductReturnSerializer
+from products.permissions import SellerPermission
+
+from cart.models import Cart, ProductCart
+from cart.serializers import ProductCartSerializer, CartSerializer
+
+from users.serializers import UserSerializer
+from users.serializers import UserSerializer
+
 from rest_framework import generics
+from rest_framework.views import APIView, Response, Request, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class OrderView(APIView):
@@ -63,6 +69,10 @@ class OrderView(APIView):
                         )
 
                         product.in_stock -= elem.quantity
+
+                        if product.in_stock == 0:
+                            product.is_avaliable = False
+
                         product.save()
                     continue
 
@@ -80,27 +90,69 @@ class OrderView(APIView):
         cart.delete()
         cart_user.delete()
 
+        send_mail(
+            subject="Pedido Realizado.",
+            message="O pedido foi realizado com sucesso!",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[f"{request.user.email}"],
+            fail_silently=False,
+        )
+
         return Response({"orders": return_list}, status.HTTP_201_CREATED)
 
     def get(self, request: Request):
         order = Order.objects.filter(user=request.user)
 
-        return Response(OrderSerializer(order).data)
+        return Response(OrderSerializer(order, many=True).data)
 
-class OrderUpdateView(generics.UpdateAPIView):
+
+# class OrderUpdateView(generics.UpdateAPIView):
+#     authentication_classes = [JWTAuthentication]
+#     permission_classes = [IsAuthenticated, SellerPermission]
+
+#     queryset = Order.objects.all()
+#     serializer_class = OrderSerializer
+
+#     def perform_update(self, serializer):
+#         send_mail(
+#             subject="Atualização do pedido",
+#             message="O status do seu pedido foi atualizado!",
+#             from_email=settings.EMAIL_HOST_USER,
+#             recipient_list=["{self.request.user.email}"],
+#             fail_silently=False,
+#         )
+#         ...
+
+
+class OrderUpdateView(APIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, SellerPermission]
 
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+    def patch(self, request, pk):
+        product_order = ProductOrder.objects.filter(
+            order_id=pk, product__seller_id=request.user.id
+        ).first()
 
-    def perform_update(self, serializer):
+        if not product_order:
+            return Response(
+                {"message": "Order not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        status = ["Pedido Realizado", "Pedido em Andamento", "Pedido Concluido"]
+
+        if request.data["status"] not in status:
+            return Response({"message": "status invalid"})
+
+        order = Order.objects.filter(pk=pk).first()
+        order.status = request.data["status"]
+        order.save()
+
         send_mail(
-        subject = 'Atualização do pedido',
-        message = 'O status do seu pedido foi atualizado!',
-        from_email = settings.EMAIL_HOST_USER,
-        recipient_list = ['{self.request.user.email}'],
-        fail_silently = False
+            subject="Atualização do pedido",
+            message="O status do seu pedido foi atualizado!",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[f"{request.user.email}"],
+            fail_silently=False,
         )
-        ...
-        
+
+        return Response(OrderSerializer(order).data)
