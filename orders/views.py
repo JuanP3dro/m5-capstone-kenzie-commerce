@@ -94,7 +94,7 @@ class OrderView(APIView):
             subject="Pedido Realizado.",
             message="O pedido foi realizado com sucesso!",
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[f"{request.user.email}"],
+            recipient_list=[request.user.email],
             fail_silently=False,
         )
 
