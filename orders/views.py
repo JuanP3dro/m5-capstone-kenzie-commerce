@@ -3,7 +3,11 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from .models import Order, ProductOrder
-from .serializers import OrderSerializer, OrderProductSerializer
+from .serializers import (
+    OrderSerializer,
+    OrderProductSerializer,
+    OrderProductSellerSerializer,
+)
 
 from products.models import Product
 from products.serializers import ProductSerializer, ProductReturnSerializer
@@ -138,3 +142,36 @@ class OrderUpdateView(APIView):
         )
 
         return Response(OrderSerializer(order).data)
+
+
+class OrderGetView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, SellerPermission]
+
+    def get(self, request):
+        orders = ProductOrder.objects.filter(product__seller_id=request.user.id)
+
+        orders_id = []
+
+        for order in orders:
+            order_id = OrderProductSellerSerializer(order).data["order"]["id"]
+
+            if order_id not in orders_id:
+                orders_id.append(order_id)
+
+        all_orders = []
+
+        for id in orders_id:
+            order = Order.objects.filter(id=id).first()
+            order = OrderSerializer(order).data
+
+            order["products"] = [
+                OrderProductSerializer(
+                    ProductOrder.objects.get(product=product, order=id)
+                ).data
+                for product in order["products"]
+            ]
+
+            all_orders.append(order)
+
+        return Response(all_orders)

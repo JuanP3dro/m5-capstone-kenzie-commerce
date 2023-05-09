@@ -36,3 +36,12 @@ class OrderProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductOrder
         fields = ["product", "quantity"]
+
+
+class OrderProductSellerSerializer(serializers.ModelSerializer):
+    product = ProductReturnSerializer()
+    order = OrderSerializer()
+
+    class Meta:
+        model = ProductOrder
+        fields = ["product", "quantity", "order"]
