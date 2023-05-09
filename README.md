@@ -17,7 +17,6 @@ Modelo de Requisição:
     "username": "João Borchoski"
     "email": "joao@joao.com",
     "password": "1212",
-    "user_type": "ademiro"
 }
 ```
 
@@ -176,50 +175,3 @@ Modelo de resposta caso de certo:
 
 Modelo de resposta caso de errado:
 `{"Descrição do erro"}`
-
-<br/>
-
-## Models
-
-### Model User
-
-| Atributos | Propriedades                            |
-| --------- | --------------------------------------- |
-| username  | CharField(max_length=127, unique=True)  |
-| email     | EmailField(max_length=127, unique=True) |
-| password  | CharField(max_length=127)               |
-| user_type | ChoiceField(default='client',choices=)  |
-
-### Model Address
-
-| Atributos  | Propriedades                                     |
-| ---------- | ------------------------------------------------ |
-| cep        | CharField(max_length=127)                        |
-| street     | CharField(max_length=127)                        |
-| number     | IntegerField(max_length=127)                     |
-| complement | CharField()                                      |
-| user_id    | OneToOneField('users.user', ON_DELETE = CASCADE) |
-
-### Model Products
-
-| Atributos | Propriedades                                 |
-| --------- | -------------------------------------------- |
-| name      | CharField(max_length=127, unique=True)       |
-| category  | CharField(max_length=100)                    |
-| price     | DecimalField(max_digits=5, decimal_places=2) |
-| in_stock  | PositiveSmallIntegerField()                  |
-| seller_id | FK()                                         |
-
-### Model Cart
-
-| Atributos | Propriedades                                     |
-| --------- | ------------------------------------------------ |
-| products  | ManyToManyField()                                |
-| user_id   | OneToOneField('users.user', ON_DELETE = CASCADE) |
-
-### Model Order
-
-| Atributos  | Propriedades                     |
-| ---------- | -------------------------------- |
-| status     | ChoiceField()                    |
-| created_at | DateTimeField(auto_now_add=True) |

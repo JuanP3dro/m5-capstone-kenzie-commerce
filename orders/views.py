@@ -8,7 +8,7 @@ from cart.serializers import ProductCartSerializer, CartSerializer
 from users.serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from products.serializers import ProductSerializer
+from products.serializers import ProductSerializer, ProductReturnSerializer
 from users.serializers import UserSerializer
 
 
@@ -53,16 +53,20 @@ class OrderView(APIView):
                         product.save()
                     continue
 
+            print("-" * 20)
+            print(order_cart.order_product)
+            print("-" * 20)
+
             return_legal = OrderSerializer(order_cart).data
             return_legal["products"] = [
-                ProductSerializer(Product.objects.get(id=product)).data
+                ProductReturnSerializer(Product.objects.get(id=product)).data
                 for product in return_legal["products"]
             ]
 
-            return_list = return_legal
+            return_list.append(return_legal)
 
-        # cart.delete()
-        # cart_user.delete()
+        cart.delete()
+        cart_user.delete()
 
         return Response({"orders": return_list}, status.HTTP_201_CREATED)
 

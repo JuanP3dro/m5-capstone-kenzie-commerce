@@ -1,5 +1,10 @@
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
+from rest_framework.permissions import (
+    IsAuthenticated,
+    AllowAny,
+    IsAdminUser,
+    IsAdminUser,
+)
 
 from rest_framework import generics
 
@@ -22,6 +27,14 @@ class UserView(generics.ListCreateAPIView):
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsAccountOwner]
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserAdminView(generics.CreateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAdminUser]
 
     queryset = User.objects.all()
     serializer_class = UserSerializer

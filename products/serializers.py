@@ -37,3 +37,9 @@ class ProductSerializer(serializers.ModelSerializer):
             validated_data["is_available"] = True
 
         return Product.objects.create(**validated_data)
+
+
+class ProductReturnSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    category = serializers.CharField()
+    price = serializers.DecimalField(max_digits=5, decimal_places=2)
