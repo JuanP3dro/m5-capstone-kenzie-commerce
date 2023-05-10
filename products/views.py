@@ -9,7 +9,6 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class ProductView(ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, SellerPermission]
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -17,6 +16,8 @@ class ProductView(ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == "GET":
             return [AllowAny()]
+
+        return [IsAuthenticated(), SellerPermission()]
 
     def perform_create(self, serializer) -> None:
         serializer.save(seller=self.request.user)
