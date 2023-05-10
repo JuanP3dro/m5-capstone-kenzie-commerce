@@ -64,6 +64,8 @@ Modelo de resposta caso de certo:
 
 Modelo de resposta caso de errado:
 
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -91,6 +93,8 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
 
 `{"Descrição do erro"}`
 
@@ -127,6 +131,8 @@ Modelo de resposta caso de certo:
 
 Modelo de resposta caso de errado:
 
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -158,6 +164,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -203,6 +212,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 ### Create Address
@@ -238,6 +250,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -275,6 +290,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -311,6 +329,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -330,6 +351,9 @@ Modelo de resposta caso de certo:
 Requisição sem resposta
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -402,6 +426,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -431,6 +458,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -475,6 +505,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -503,6 +536,9 @@ Modelo de resposta caso de certo:
 Requisição sem resposta
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -522,6 +558,9 @@ Modelo de resposta caso de certo:
 Requisição sem resposta
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -579,6 +618,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -635,6 +677,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 ### Patch Order
@@ -669,6 +714,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
@@ -709,6 +757,9 @@ Modelo de resposta caso de certo:
 ```
 
 Modelo de resposta caso de errado:
+
+<br/>
+
 `{"Descrição do erro"}`
 
 <br/>
