@@ -1,3 +1,7 @@
+from .serializers import UserSerializer
+from .permissions import IsAccountOwner
+from .models import User
+
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import (
     IsAuthenticated,
@@ -5,13 +9,9 @@ from rest_framework.permissions import (
     IsAdminUser,
     IsAdminUser,
 )
-
 from rest_framework import generics
 
-from .serializers import UserSerializer
-from .permissions import IsAccountOwner
-
-from .models import User
+from rest_framework.views import APIView, Response, status
 
 
 class UserView(generics.ListCreateAPIView):
@@ -40,3 +40,16 @@ class UserAdminView(generics.CreateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class CreateAdminView(APIView):
+    def post(self, request):
+        user = {
+            "username": "admin",
+            "email": "admin@admin.com",
+            "password": "1234",
+        }
+
+        admin = User.objects.create_superuser(**user)
+
+        return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)

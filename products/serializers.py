@@ -1,12 +1,9 @@
 from .models import Product
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from users.serializers import UserSerializer
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    # seller = UserSerializer(read_only=True)
-
     class Meta:
         model = Product
         fields = [
